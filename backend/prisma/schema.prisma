@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+model sprockets {
+  id         Int      @unique() @default(autoincrement())
+  teeth    Int?
+  pitchDiameter   Int? @map("pitch_diameter")
+  outsideDiameter   Int? @map("outside_diameter")
+  pitch Int?
+}
+
+model factory {
+  id         Int      @unique() @default(autoincrement())
+  sprocketProductionActual    Json? @map("sprocket_production_actual")
+  sprocketProductionGoal   Json? @map("sprocket_production_goal")
+  time   Json?
+}

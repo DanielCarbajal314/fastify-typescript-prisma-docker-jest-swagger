@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  postgresqlServer:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+  api:
+    build: 
+      context: backend
+    environment:
+      - SERVER_PORT=3050
+      - DB_URL=postgresql://postgres:postgres@postgresqlServer:5432/backend
+    ports:
+      - '3050:3050'
+    depends_on:
+      - postgresqlServer
